@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Change directory to the folder where this script file lives
+cd "$(dirname "$0")"
+
+ENV=.venv
+PORT=8000
+export DJANGO_SUPERUSER_PASSWORD=dev
+
+# kill old port if it exists
+lsof -i tcp:${PORT} | awk 'NR!=1 {print $2}' | xargs kill
+
+# create .env if it doesn't exist
+[ ! -d "$ENV" ] && python3 -m venv $ENV
+
+# activate virtual environment
+. ${ENV}/bin/activate
+
+# install dependencies
+pip install .
+
+time ./manage.py migrate
+echo "Creating superuser - dev/dev"
+./manage.py createsuperuser --noinput --username dev --email dev@example.com
+./manage.py runserver $PORT

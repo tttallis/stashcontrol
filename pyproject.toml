@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools >= 72.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []
+[project]
+name="stashcontrol"
+requires-python = ">= 3.11"
+version="0.0.1"
+dependencies = [
+	"django==5.2",
+]
+
+[project.optional-dependencies]
+dev=[
+	"pylint",
+	"autopep8"
+]
