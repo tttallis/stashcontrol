@@ -46,6 +46,8 @@ class Measurement(models.Model):
 	container = models.ForeignKey('Container', on_delete=models.CASCADE)
 	timestamp = models.DateTimeField()
 	weight = models.FloatField()
+	initial = models.BooleanField()
+	final = models.BooleanField()
 	
 	def __str__(self):
 		return f"{self.container.product.name} - {self.timestamp.strftime("%Y-%m-%d %H:%M:%S")}: {self.weight}g"
