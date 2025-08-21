@@ -20,6 +20,7 @@ class Batch(models.Model):
 	product = models.ForeignKey('Product', on_delete=models.CASCADE)
 	identifier = models.TextField()
 	strain = models.TextField(blank=True)
+	thc = models.FloatField()
 	
 	def __str__(self):
 		return self.identifier
@@ -37,9 +38,15 @@ class Container(models.Model):
 	include_container_weight = models.BooleanField(default=True, help_text="Is the container weight included in measurements?")
 	include_lid_weight = models.BooleanField(default=False, help_text="Is the lid weight included in measurements?")
 	include_humidity_pack_weight = models.BooleanField(default=True, help_text="Is a humidity pack weight included in measurements?")
+	initial_gross = models.FloatField()
 	
 	def __str__(self):
 		return f"{self.product.name} {self.pk}"
+		
+		
+	@property
+	def initial_tare(self):
+		return self.initial_gross - self.initial_tare
 	
 class Measurement(models.Model):
 	
@@ -48,6 +55,10 @@ class Measurement(models.Model):
 	weight = models.FloatField()
 	initial = models.BooleanField()
 	final = models.BooleanField()
+	
+	@property
+	def net_weight(self):
+		return self.weight - (self.container.initial_gross - self.container.product.product_weight)
 	
 	def __str__(self):
 		return f"{self.container.product.name} - {self.timestamp.strftime("%Y-%m-%d %H:%M:%S")}: {self.weight}g"

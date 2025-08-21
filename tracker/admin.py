@@ -5,7 +5,7 @@ class ProductAdmin(admin.ModelAdmin):
 	list_display = ('name', 'product_weight')
 
 class MeasurementAdmin(admin.ModelAdmin):
-	list_display = ('timestamp', 'container', 'weight')
+	list_display = ('timestamp', 'container', 'weight', 'net_weight')
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Batch)

@@ -3,7 +3,7 @@
   <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hello Bulma!</title>
+	<title>StashControl</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -12,13 +12,13 @@
   <section class="section">
 	<div class="container">
 	  <h1 class="title">
-		Hello World
+		Hello {{ request.user }}
 	  </h1>
 	  <p class="subtitle">
-		My first website with <strong>Bulma</strong>!
+		Your medicinal cannabis flower usage
 	  </p>
 	</div>
-	<div id="tester" style="width:600px;height:250px;"></div>
+	<div id="tester" style="width:900px;height:400px;"></div>
   </section>
   {{ measurements|json_script:"tracker-data" }}
 <script>
