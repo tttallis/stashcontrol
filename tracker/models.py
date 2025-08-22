@@ -1,14 +1,30 @@
 from django.db import models
+from datetime import date, datetime
+from pytz import timezone
+from django.conf import settings
+
+class Sponsor(models.Model):
+	name = models.TextField()
+	
+	def __str__(self):
+		return self.name
 
 class Product(models.Model):
 	"""
 	A specific cannabis product.
 	"""
 	name = models.TextField()
+	sponsor = models.ForeignKey(Sponsor, on_delete=models.PROTECT, null=True, blank=True)
 	product_weight = models.FloatField()
 	# product_type = models.ForeignKey() # for now, we assume it's flower
 	catalyst_id = models.UUIDField(blank=True, null=True)
 	strain = models.TextField(blank=True)
+	thc = models.FloatField(default=0)
+	cbd = models.FloatField(default=0)
+	cbg = models.FloatField(default=0)
+	cbv = models.FloatField(default=0)
+	cbc = models.FloatField(default=0)
+	thcv = models.FloatField(default=0)
 	
 	def __str__(self):
 		return self.name
@@ -20,7 +36,6 @@ class Batch(models.Model):
 	product = models.ForeignKey('Product', on_delete=models.CASCADE)
 	identifier = models.TextField()
 	strain = models.TextField(blank=True)
-	thc = models.FloatField()
 	
 	def __str__(self):
 		return self.identifier
@@ -39,10 +54,53 @@ class Container(models.Model):
 	include_lid_weight = models.BooleanField(default=False, help_text="Is the lid weight included in measurements?")
 	include_humidity_pack_weight = models.BooleanField(default=True, help_text="Is a humidity pack weight included in measurements?")
 	initial_gross = models.FloatField()
+	cost = models.DecimalField(max_digits=7, decimal_places=2)
 	
 	def __str__(self):
 		return f"{self.product.name} {self.pk}"
 		
+	def weight_at_time(self, dt):
+		prev = self.measurement_set.filter(timestamp__lt=dt).order_by('-timestamp').first()
+		next = self.measurement_set.filter(timestamp__gt=dt).order_by('timestamp').first()
+		if not next and not prev:
+			return 0
+		if not prev:
+			return next.weight
+		if not next:
+			return prev.weight
+		epoch = next.timestamp - prev.timestamp
+		prior_gap = dt - prev.timestamp
+		delta = prev.weight - next.weight
+		return prev.weight - (prior_gap / epoch * delta)
+		
+	def grams_per_day(self, day):
+		tz = timezone(settings.TIME_ZONE)
+		start_weight = self.weight_at_time(datetime.combine(day, datetime.min.time(), tzinfo=tz))
+		end_weight = self.weight_at_time(datetime.combine(day, datetime.max.time(), tzinfo=tz))
+		return start_weight - end_weight
+		
+	def grams_per_day_moving_average(self, day):
+		tz = timezone(settings.TIME_ZONE)
+		start = day - timdelta(days=3)
+		end = day + timdelta(days=3)
+		start_weight = self.weight_at_time(datetime.combine(start, datetime.min.time(), tzinfo=tz))
+		end_weight = self.weight_at_time(datetime.combine(end, datetime.max.time(), tzinfo=tz))
+		return (start_weight - end_weight) / 7
+		
+	def cost_per_gram(self):
+		return self.product
+		
+	def thc_per_day(self, day):
+		return (self.grams_per_day(day) / self.product.product_weight) * (self.product.product_weight * self.product.thc)
+		
+	def cbd_per_day(self, day):
+		return (self.grams_per_day(day) / self.product.product_weight) * (self.product.product_weight * self.product.cbd)
+		
+	def cbg_per_day(self, day):
+		return (self.grams_per_day(day) / self.product.product_weight) * (self.product.product_weight * self.product.cbg)
+		
+	def cost_per_day(self, day):
+		return (self.grams_per_day(day) / self.product.product_weight) * float(self.cost)
 		
 	@property
 	def initial_tare(self):

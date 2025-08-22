@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from tracker.views import dash, feed
+from tracker.views import dash, feed, grams, cost, cannabinoids
 
 urlpatterns = [
     path('', dash),
     path('feed/', feed),
+    path('grams/', grams),
+    path('cost/', cost),
+    path('cannabinoids/', cannabinoids),
     path('admin/', admin.site.urls),
 ]

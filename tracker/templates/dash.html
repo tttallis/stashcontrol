@@ -18,20 +18,42 @@
 		Your medicinal cannabis flower usage
 	  </p>
 	</div>
-	<div id="tester" style="width:900px;height:400px;"></div>
+	<div id="burndown" style="width:1200px;height:400px;"></div>
+	<div id="grams" style="width:1200px;height:400px;"></div>
+	<div id="cost" style="width:1200px;height:400px;"></div>
+	<div id="cannabinoids" style="width:1200px;height:400px;"></div>
   </section>
   {{ measurements|json_script:"tracker-data" }}
 <script>
-$.getJSON("/feed/", callbackFuncWithData);
+$.getJSON("/feed/", feedCallBack);
+$.getJSON("/grams/", gramsCallBack);
+$.getJSON("/cost/", costCallBack);
+$.getJSON("/cannabinoids/", cannabinoidsCallBack);
 
-function callbackFuncWithData(data)
+function feedCallBack(data)
 {
-	console.log(data);
-	TESTER = document.getElementById('tester');
- Plotly.newPlot( TESTER, data);
+	div = document.getElementById('burndown');
+	Plotly.newPlot( div, data);
 }
 
+function gramsCallBack(data)
+{
+	div = document.getElementById('grams');
+	Plotly.newPlot( div, data);
+}
 
+function costCallBack(data)
+{
+	div = document.getElementById('cost');
+	Plotly.newPlot( div, data);
+}
+
+function cannabinoidsCallBack(data)
+{
+	div = document.getElementById('cannabinoids');
+	Plotly.newPlot( div, data);
+
+}
   </script>
   </body>
 </html>
