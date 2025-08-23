@@ -103,13 +103,13 @@ class Container(models.Model):
 		return start, end
 
 	def grams_per_day(self, day):
-		return self.consumption_over_time(self.get_day_times(day))
+		return self.consumption_over_time(*self.get_day_times(day))
 		
 	def grams_per_month(self, day):
-		return self.consumption_over_time(self.get_month_times())
+		return self.consumption_over_time(*self.get_month_times(day))
 		
 	def grams_per_day_moving_average(self, day, extra):
-		return self.consumption_over_time(self.day_moving_average_times()) / 2 * extra + 1
+		return self.consumption_over_time(*self.day_moving_average_times(day)) / 2 * extra + 1
 
 	def thc_per_day(self, day):
 		return (self.grams_per_day(day) / self.product.product_weight) * (self.product.product_weight * self.product.thc)
