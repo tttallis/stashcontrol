@@ -20,6 +20,7 @@ def feed(request):
 			"y": [m.net_weight for m in container_measures],
 			"type": "scatter",
 			"name": container.product.name,
+			"line": {"shape": 'spline'},
 		})
 		
 	# data.append({
@@ -49,6 +50,7 @@ def grams(request):
 				"type": "bar",
 				"name": container.product.name,
 			}
+		
 	return JsonResponse({'data': list(prods.values()), 'layout': {'title': {'text':'Grams per day'}, 'barmode': 'stack'}})
 
 def cannabinoids(request):
@@ -56,6 +58,8 @@ def cannabinoids(request):
 	start = measurements.first().timestamp.date()
 	end = measurements.last().timestamp.date()
 	dates = [start+timedelta(days=x) for x in range((end-start).days)]
+	# TO DO: I'm sure there's a more elegant and performant solution using comprehensions
+	# but for now I'm using this dumb approach
 	data = []
 	canna = {
 		"thc": {
@@ -97,3 +101,6 @@ def cost(request):
 			"name": container.product.name,
 		})
 	return JsonResponse({'data': data, 'layout': {'title': {'text':'Cost per day'}, 'barmode': 'stack'}})
+	
+def dashboard(request):
+	month = datetime.now()

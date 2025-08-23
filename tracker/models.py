@@ -2,6 +2,12 @@ from django.db import models
 from datetime import date, datetime
 from pytz import timezone
 from django.conf import settings
+from django.contrib.auth.models import User
+from dateutil.relativedelta import relativedelta
+
+class Patient(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	monthly_limit = models.PositiveIntegerField(default=60)
 
 class Sponsor(models.Model):
 	name = models.TextField()
@@ -73,23 +79,38 @@ class Container(models.Model):
 		delta = prev.weight - next.weight
 		return prev.weight - (prior_gap / epoch * delta)
 		
+	def consumption_over_time(self, start, end):
+		return self.weight_at_time(start) - self.weight_at_time(end)
+		
+	def get_day_times(self, day):
+		tz = timezone(settings.TIME_ZONE)
+		start = datetime.combine(day, datetime.min.time(), tzinfo=tz)
+		end = datetime.combine(day, datetime.max.time(), tzinfo=tz)
+		return start, end
+		
+	def get_month_times(self, day):
+		tz = timezone(settings.TIME_ZONE)
+		start = datetime.combine(day.replace(day=1), datetime.min.time(), tzinfo=tz)
+		end = datetime.combine(day, datetime.max.time(), tzinfo=tz) + relativedelta(day=31)
+		return start, end
+		
+	def day_moving_average_times(self, day):
+		tz = timezone(settings.TIME_ZONE)
+		start = day - timdelta(days=extra)
+		end = day + timdelta(days=extra)
+		start_weight = datetime.combine(start, datetime.min.time(), tzinfo=tz)
+		end_weight = datetime.combine(end, datetime.max.time(), tzinfo=tz)
+		return start, end
+
 	def grams_per_day(self, day):
-		tz = timezone(settings.TIME_ZONE)
-		start_weight = self.weight_at_time(datetime.combine(day, datetime.min.time(), tzinfo=tz))
-		end_weight = self.weight_at_time(datetime.combine(day, datetime.max.time(), tzinfo=tz))
-		return start_weight - end_weight
+		return self.consumption_over_time(self.get_day_times(day))
 		
-	def grams_per_day_moving_average(self, day):
-		tz = timezone(settings.TIME_ZONE)
-		start = day - timdelta(days=3)
-		end = day + timdelta(days=3)
-		start_weight = self.weight_at_time(datetime.combine(start, datetime.min.time(), tzinfo=tz))
-		end_weight = self.weight_at_time(datetime.combine(end, datetime.max.time(), tzinfo=tz))
-		return (start_weight - end_weight) / 7
+	def grams_per_month(self, day):
+		return self.consumption_over_time(self.get_month_times())
 		
-	def cost_per_gram(self):
-		return self.product
-		
+	def grams_per_day_moving_average(self, day, extra):
+		return self.consumption_over_time(self.day_moving_average_times()) / 2 * extra + 1
+
 	def thc_per_day(self, day):
 		return (self.grams_per_day(day) / self.product.product_weight) * (self.product.product_weight * self.product.thc)
 		

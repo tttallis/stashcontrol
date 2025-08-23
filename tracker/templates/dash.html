@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>StashControl</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+	<style>
+		
+	</style>
    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js" charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   </head>
@@ -17,40 +20,74 @@
 	  <p class="subtitle">
 		Your medicinal cannabis flower usage
 	  </p>
+	 <div class="columns">
+		 <div class="column is-two-thirds">
+	<div class="tabs is-medium is-boxed">
+	  <ul class="tabmenu">
+		<li class="is-active" id="feed"><a>gm on hand</a></li>
+		<li id="grams"><a>gm/day</a></li>
+		<li id="cost"><a>$/day</a></li>
+		<li id="cannabinoids"><a>cannabinoids</a></li>
+	  </ul>
 	</div>
-	<div id="burndown" style="width:1200px;height:400px;"></div>
-	<div id="grams" style="width:1200px;height:400px;"></div>
-	<div id="cost" style="width:1200px;height:400px;"></div>
-	<div id="cannabinoids" style="width:1200px;height:400px;"></div>
+	<div id="graph" style="width:100%;height:400px;"></div>
+		 </div>
+		 <div class="column has-background-success-light">
+			 test
+		 </div>
+	</div>
   </section>
   {{ measurements|json_script:"tracker-data" }}
 <script>
+
 $.getJSON("/feed/", feedCallBack);
-$.getJSON("/grams/", gramsCallBack);
-$.getJSON("/cost/", costCallBack);
-$.getJSON("/cannabinoids/", cannabinoidsCallBack);
+
+$("#feed a").click(function(){
+	$('.tabmenu li').removeClass('is-active');
+	$('#feed').addClass('is-active');
+	$.getJSON("/feed/", feedCallBack);
+});
+
+$("#grams a").click(function(){
+	$('.tabmenu li').removeClass('is-active');
+	$('#grams').addClass('is-active');
+	$.getJSON("/grams/", gramsCallBack);
+});
+
+$("#cost").click(function(){
+	$('.tabmenu li').removeClass('is-active');
+	$('#cost').addClass('is-active');
+	$.getJSON("/cost/", costCallBack);
+});
+
+$("#cannabinoids").click(function(){
+	$('.tabmenu li').removeClass('is-active');
+	$('#cannabinoids').addClass('is-active');
+	$.getJSON("/cannabinoids/", cannabinoidsCallBack);
+});
 
 function feedCallBack(data)
 {
-	div = document.getElementById('burndown');
+	div = document.getElementById('graph');
 	Plotly.newPlot( div, data);
 }
 
 function gramsCallBack(data)
 {
-	div = document.getElementById('grams');
+	console.log(data);
+	div = document.getElementById('graph');
 	Plotly.newPlot( div, data);
 }
 
 function costCallBack(data)
 {
-	div = document.getElementById('cost');
+	div = document.getElementById('graph');
 	Plotly.newPlot( div, data);
 }
 
 function cannabinoidsCallBack(data)
 {
-	div = document.getElementById('cannabinoids');
+	div = document.getElementById('graph');
 	Plotly.newPlot( div, data);
 
 }
