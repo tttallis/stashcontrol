@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,14 +15,18 @@
   <body>
   <section class="section">
 	<div class="container">
-	  <h1 class="title">
-		Hello {{ request.user }}
-	  </h1>
-	  <p class="subtitle">
-		Your medicinal cannabis flower usage
-	  </p>
 	 <div class="columns">
 		 <div class="column is-two-thirds">
+			 <div class="columns is-mobile is-centered is-vcentered">
+			   <div class="column is-one-fifth">
+				 <img src="{% static 'stash.svg' %}" alt="Stash Manager" />
+			   </div>
+			   <div class="column">
+				 <span class="subtitle">Hi {{ request.user }}</span><br>
+			   </div>
+			 </div>
+
+
 	<div class="tabs is-medium is-boxed">
 	  <ul class="tabmenu">
 		<li class="is-active" id="feed"><a>gm on hand</a></li>
@@ -32,64 +37,80 @@
 	</div>
 	<div id="graph" style="width:100%;height:400px;"></div>
 		 </div>
-		 <div class="column has-background-success-light">
-			 test
+		 <div class="column content">
+			 <p>{% now "F" %}</p>
+			 <h3>Scripts dispensed in {% now "F" %}</h3>
+			 <table>
+				 {% for script in dispensed %}{{total}}
+					<tr>
+						<td><a href="https://catalyst.honahlee.com.au/app/products/{{ script.product.catalyst_id }}">{{ script.product.name }}</a></td>
+						<td><small class="has-text-grey">${{ script.cost }}</small></td>
+						<td><small class="has-text-grey">{{ script.product.product_weight }}g</small></td>
+					</tr>
+				{% endfor %}
+			 </table>
 		 </div>
 	</div>
   </section>
-  {{ measurements|json_script:"tracker-data" }}
 <script>
+let feedData = null;
+let gramsData = null;
+let costData = null;
+let cannabinoidsData = null;
 
 $.getJSON("/feed/", feedCallBack);
+$.getJSON("/grams/", gramsCallBack);
+$.getJSON("/cost/", costCallBack);
+$.getJSON("/cannabinoids/", cannabinoidsCallBack);
 
 $("#feed a").click(function(){
 	$('.tabmenu li').removeClass('is-active');
 	$('#feed').addClass('is-active');
-	$.getJSON("/feed/", feedCallBack);
+	div = document.getElementById('graph');
+	Plotly.newPlot( div, feedData);
 });
 
 $("#grams a").click(function(){
 	$('.tabmenu li').removeClass('is-active');
 	$('#grams').addClass('is-active');
-	$.getJSON("/grams/", gramsCallBack);
+	div = document.getElementById('graph');
+	Plotly.newPlot( div, gramsData);
 });
 
 $("#cost").click(function(){
 	$('.tabmenu li').removeClass('is-active');
 	$('#cost').addClass('is-active');
-	$.getJSON("/cost/", costCallBack);
+	div = document.getElementById('graph');
+	Plotly.newPlot( div, costData);
 });
 
 $("#cannabinoids").click(function(){
 	$('.tabmenu li').removeClass('is-active');
 	$('#cannabinoids').addClass('is-active');
-	$.getJSON("/cannabinoids/", cannabinoidsCallBack);
+	div = document.getElementById('graph');
+	Plotly.newPlot( div, cannabinoidsData);
 });
 
 function feedCallBack(data)
 {
+	feedData = data;
 	div = document.getElementById('graph');
-	Plotly.newPlot( div, data);
+	Plotly.newPlot( div, feedData);
 }
 
 function gramsCallBack(data)
 {
-	console.log(data);
-	div = document.getElementById('graph');
-	Plotly.newPlot( div, data);
+	gramsData = data;
 }
 
 function costCallBack(data)
 {
-	div = document.getElementById('graph');
-	Plotly.newPlot( div, data);
+	costData = data;
 }
 
 function cannabinoidsCallBack(data)
 {
-	div = document.getElementById('graph');
-	Plotly.newPlot( div, data);
-
+	cannabinoidsData = data;
 }
   </script>
   </body>

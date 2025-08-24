@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from tracker.views import dash, feed, grams, cost, cannabinoids
+from tracker.views import dash, feed, grams, cost, cannabinoids, dashboard
 
 urlpatterns = [
     path('', dash),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('grams/', grams),
     path('cost/', cost),
     path('cannabinoids/', cannabinoids),
+    path('dashboard/', dashboard),
     path('admin/', admin.site.urls),
 ]
