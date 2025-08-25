@@ -14,11 +14,12 @@ def dash(request):
 	start = datetime.combine(today.replace(day=1), datetime.min.time())
 	end = datetime.combine(today, datetime.max.time()) + relativedelta(day=31)
 	dispensed_this_month = request.user.container_set.filter(dispensed__range=(start, end))#.annotate(total_grams=Sum("product__product_weight"))
-	total = 0
+	total_weight = 0
+	total_cost = 0
 	for d in dispensed_this_month:
-		total += d.product.product_weight
-		
-	return render(request, 'dash.html', {"dispensed": dispensed_this_month, "total": total})
+		total_weight += d.product.product_weight
+		total_cost += d.cost		
+	return render(request, 'dash.html', {"dispensed": dispensed_this_month, "total_weight": total_weight, "total_cost": total_cost})
 	
 @login_required
 def feed(request):
@@ -54,6 +55,8 @@ def grams(request):
 	dates = [start+timedelta(days=x) for x in range((end-start).days)]
 	products = request.user.container_set.values('product__name', 'pk').distinct()
 	prods = {}
+	this_week = 0
+	last_week = 0
 	for container in request.user.container_set.all():
 		if container.product.name in prods:
 			prods[container.product.name]["y"] = [i+j for i,j in zip(prods[container.product.name]["y"], [container.grams_per_day(day) for day in dates])]
@@ -65,8 +68,10 @@ def grams(request):
 				"type": "bar",
 				"name": container.product.name,
 			}
+		this_week += container.consumption_over_time(timezone.now(), timezone.now() - timedelta(days=7))
+		last_week += container.consumption_over_time(timezone.now() - timedelta(days=7), timezone.now() - timedelta(days=14))
 		
-	return JsonResponse({'data': list(prods.values()), 'layout': {'title': {'text':'Grams per day'}, 'barmode': 'stack'}})
+	return JsonResponse({'data': list(prods.values()), 'layout': {'title': {'text':'Grams per day'}, 'barmode': 'stack'}, 'this_week': this_week, 'last_week': last_week})
 
 @login_required
 def cannabinoids(request):

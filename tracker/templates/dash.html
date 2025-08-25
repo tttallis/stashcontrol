@@ -13,6 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   </head>
   <body>
+	  {{ request.user.patient.monthly_target }}
+
   <section class="section">
 	<div class="container">
 	 <div class="columns">
@@ -22,7 +24,7 @@
 				 <img src="{% static 'stash.svg' %}" alt="Stash Manager" />
 			   </div>
 			   <div class="column">
-				 <span class="subtitle">Hi {{ request.user }}</span><br>
+				 <span class="subtitle">Hello {{ request.user }}</span><br>
 			   </div>
 			 </div>
 
@@ -38,10 +40,10 @@
 	<div id="graph" style="width:100%;height:400px;"></div>
 		 </div>
 		 <div class="column content">
-			 <p>{% now "F" %}</p>
-			 <h3>Scripts dispensed in {% now "F" %}</h3>
+			 <section class="box">
+			 <h3>{% now "F" %} scripts</h3>
 			 <table>
-				 {% for script in dispensed %}{{total}}
+				 {% for script in dispensed %}
 					<tr>
 						<td><a href="https://catalyst.honahlee.com.au/app/products/{{ script.product.catalyst_id }}">{{ script.product.name }}</a></td>
 						<td><small class="has-text-grey">${{ script.cost }}</small></td>
@@ -49,14 +51,52 @@
 					</tr>
 				{% endfor %}
 			 </table>
+			 <div id="dispensed"></div>
+			 </section>
 		 </div>
 	</div>
   </section>
+
 <script>
 let feedData = null;
 let gramsData = null;
 let costData = null;
 let cannabinoidsData = null;
+let dashData = {
+	data: [
+	  {
+		type: "indicator",
+		mode: "gauge+number",
+		value: {{ total_weight }},
+		domain: { x: [0, 1], y: [0, 1] },
+		title: {
+		  text: "grams dispensed"
+		},
+		gauge: {
+		  axis: { range: [null, {{ request.user.patient.monthly_limit }}] },
+		  threshold: {
+			line: { color: "red", width: 2 },
+			thickness: 0.75,
+			value: {{ request.user.patient.monthly_target }}
+		  }
+		}
+	  }
+	],
+	layout:{  autosize: false,
+		  width: 100,
+		  height: 100,
+		  margin: {
+			l: 0,
+			r: 0,
+			b: 0,
+			t: 0,
+			pad: 0
+		}
+	}
+}
+
+div = document.getElementById('dispensed');
+Plotly.newPlot( div, dashData);
 
 $.getJSON("/feed/", feedCallBack);
 $.getJSON("/grams/", gramsCallBack);

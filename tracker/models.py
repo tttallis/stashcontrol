@@ -8,8 +8,12 @@ from dateutil.relativedelta import relativedelta
 class Patient(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	monthly_limit = models.PositiveIntegerField(default=60)
+	monthly_target = models.PositiveIntegerField(default=30)
 
 class Sponsor(models.Model):
+	"""
+	The company that "sponsors" the product.
+	"""
 	name = models.TextField()
 	
 	def __str__(self):
