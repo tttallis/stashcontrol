@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Measurement
 from datetime import timedelta, datetime
@@ -7,6 +6,9 @@ from django.utils import timezone
 from django.conf import settings
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 @login_required
 def dash(request):
@@ -141,3 +143,17 @@ def dashboard(request):
 
 	return JsonResponse({'data': usage, 'layout': {}})
 
+def login_view(request):
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+	
+		user = authenticate(request, username=username, password=password)
+	
+		if user is not None:
+			login(request, user)
+			return redirect('dashboard')  # ✅ redirect to dashboard now
+		else:
+			messages.error(request, 'Invalid username or password.')
+	
+	return render(request, 'login.html')

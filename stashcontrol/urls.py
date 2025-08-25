@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from tracker.views import dash, feed, grams, cost, cannabinoids, dashboard
+from tracker import views
 
 urlpatterns = [
-    path('', dash),
-    path('feed/', feed),
-    path('grams/', grams),
-    path('cost/', cost),
-    path('cannabinoids/', cannabinoids),
-    path('dashboard/', dashboard),
+    path('', views.dash, name='dashboard'),
+    path('feed/', views.feed),
+    path('grams/', views.grams),
+    path('cost/', views.cost),
+    path('cannabinoids/', views.cannabinoids),
+    path('dashboard/', views.dashboard),
     path('admin/', admin.site.urls),
+    path('login/', views.login_view, name='login'),
 ]
