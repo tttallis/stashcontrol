@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 ENV=env
 PORT=8000
-export DJANGO_SUPERUSER_PASSWORD=dev
+export DJANGO_SUPERUSER_PASSWORD=w33d!
 
 # create .env if it doesn't exist
 [ ! -d "$ENV" ] && python3 -m venv $ENV
