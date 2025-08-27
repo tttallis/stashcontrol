@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3fwt!=efb@yt%+48g13!@(k)vrr7f5sf+v3l()=wzfmk0x=)xf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'tttallis.pythonanywhere.com',]
+ALLOWED_HOSTS = ['localhost', 'tttallis.pythonanywhere.com', "stashcontrol-production.up.railway.app", "stashcontrol.app"]
 LOGIN_URL = 'login'
 
 # Application definition
