@@ -3,7 +3,7 @@
 # Change directory to the folder where this script file lives
 cd "$(dirname "$0")"
 
-ENV=.venv
+ENV=env
 PORT=8000
 export DJANGO_SUPERUSER_PASSWORD=dev
 
