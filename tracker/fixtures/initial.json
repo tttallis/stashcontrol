@@ -40,6 +40,23 @@
   }
 },
 {
+  "model": "sessions.session",
+  "pk": "zy26pjczel6pqypj0ccsjh44j0mm1gm0",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCHdqC4dN8zkAEGqRpISrsy3l1JutDkr_57eS_haN-y2xuvboniIkCcfj9P4cGlg3incqsy1LKti5ddkQdtcq6Rn9fD_QtkarlnAZliCga8Js0qaDB2GBNSxKTsecIwGMVeM-Dogb6bEujAxjIiR_H-APApOGE:1uqPbV:Ee8WDMGvqbuT4jA0LB7_qXqGbHPKwHplnZlRZ5OQGVw",
+    "expire_date": "2025-09-08T05:18:49.098Z"
+  }
+},
+{
+  "model": "tracker.patient",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "monthly_limit": 90,
+    "monthly_target": 60
+  }
+},
+{
   "model": "tracker.sponsor",
   "pk": 1,
   "fields": {
@@ -65,6 +82,20 @@
   "pk": 4,
   "fields": {
     "name": "Spyn by Hale Farm"
+  }
+},
+{
+  "model": "tracker.sponsor",
+  "pk": 5,
+  "fields": {
+    "name": "Curo"
+  }
+},
+{
+  "model": "tracker.sponsor",
+  "pk": 6,
+  "fields": {
+    "name": "Indimed"
   }
 },
 {
@@ -113,6 +144,40 @@
     "thc": 0.0,
     "cbd": 0.0,
     "cbg": 0.13,
+    "cbv": 0.0,
+    "cbc": 0.0,
+    "thcv": 0.0
+  }
+},
+{
+  "model": "tracker.product",
+  "pk": 4,
+  "fields": {
+    "name": "OG Chem",
+    "sponsor": 5,
+    "product_weight": 10.0,
+    "catalyst_id": "71fc13d3-3cdc-4b15-915e-a0e56b67148c",
+    "strain": "Chem OG",
+    "thc": 0.28,
+    "cbd": 0.01,
+    "cbg": 0.0,
+    "cbv": 0.0,
+    "cbc": 0.0,
+    "thcv": 0.0
+  }
+},
+{
+  "model": "tracker.product",
+  "pk": 5,
+  "fields": {
+    "name": "Tempo 22 Lemon Laser (Sativa)",
+    "sponsor": 6,
+    "product_weight": 15.0,
+    "catalyst_id": "6af22761-7e2d-43e0-8b53-eb7acee452f9",
+    "strain": "",
+    "thc": 0.22,
+    "cbd": 0.01,
+    "cbg": 0.0,
     "cbv": 0.0,
     "cbc": 0.0,
     "thcv": 0.0
@@ -195,13 +260,64 @@
     "batch": null,
     "dispensed": null,
     "patient": 1,
-    "opened": null,
-    "finished": null,
+    "opened": "2025-07-27",
+    "finished": "2025-08-10",
     "include_container_weight": true,
     "include_lid_weight": false,
     "include_humidity_pack_weight": false,
     "initial_gross": 16.8,
     "cost": "60.00"
+  }
+},
+{
+  "model": "tracker.container",
+  "pk": 5,
+  "fields": {
+    "product": 4,
+    "batch": null,
+    "dispensed": "2025-08-22",
+    "patient": 1,
+    "opened": "2025-08-24",
+    "finished": null,
+    "include_container_weight": true,
+    "include_lid_weight": false,
+    "include_humidity_pack_weight": true,
+    "initial_gross": 41.0,
+    "cost": "69.00"
+  }
+},
+{
+  "model": "tracker.container",
+  "pk": 6,
+  "fields": {
+    "product": 5,
+    "batch": null,
+    "dispensed": "2025-08-22",
+    "patient": 1,
+    "opened": "2025-08-22",
+    "finished": null,
+    "include_container_weight": true,
+    "include_lid_weight": false,
+    "include_humidity_pack_weight": false,
+    "initial_gross": 48.5,
+    "cost": "99.00"
+  }
+},
+{
+  "model": "tracker.container",
+  "pk": 7,
+  "fields": {
+    "product": 4,
+    "batch": null,
+    "dispensed": "2025-08-01",
+    "patient": 1,
+    "opened": "2025-08-01",
+    "finished": null,
+    "include_container_weight": true,
+    "include_lid_weight": false,
+    "include_humidity_pack_weight": true,
+    "initial_gross": 43.0,
+    "cost": "69.00"
   }
 },
 {
@@ -433,6 +549,50 @@
     "weight": 12.1,
     "initial": false,
     "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 23,
+  "fields": {
+    "container": 6,
+    "timestamp": "2025-08-22T08:13:18Z",
+    "weight": 48.5,
+    "initial": true,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 24,
+  "fields": {
+    "container": 6,
+    "timestamp": "2025-08-24T08:47:28Z",
+    "weight": 46.5,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 25,
+  "fields": {
+    "container": 7,
+    "timestamp": "2025-08-01T00:22:44Z",
+    "weight": 43.0,
+    "initial": true,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 26,
+  "fields": {
+    "container": 7,
+    "timestamp": "2025-08-09T00:24:34Z",
+    "weight": 33.0,
+    "initial": false,
+    "final": true
   }
 },
 {
