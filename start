@@ -22,4 +22,4 @@ pip install .
 time ./manage.py migrate
 echo "Creating superuser - dev/dev"
 ./manage.py createsuperuser --noinput --username dev --email dev@example.com
-./manage.py runserver $PORT
+./manage.py loaddata initial
