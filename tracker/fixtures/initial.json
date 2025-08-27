@@ -1,6 +1,14 @@
 [
 {
   "model": "sessions.session",
+  "pk": "13v1iizfcuxnoubdg295kddnbefnc3xt",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCHdqC4dN8zkAEGqRpISrsy3l1JutDkr_57eS_haN-y2xuvboniIkCcfj9P4cGlg3incqsy1LKti5ddkQdtcq6Rn9fD_QtkarlnAZliCga8Js0qaDB2GBNSxKTsecIwGMVeM-Dogb6bEujAxjIiR_H-APApOGE:1ur5ei:6pEEGbgll_ae-3VjLbwPkISAQg7x5ZRHZRfOF925D5Q",
+    "expire_date": "2025-09-10T02:12:56.639Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "1wikgwephokndqikf7vwxvawkunckhx4",
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1uoxM2:sZD5656B5wJ5X4BvSadQ4oTQArdDjcsrX-3tHyGyrcA",
@@ -37,14 +45,6 @@
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1umP0N:G3AGWwNCoKoJJp5NQDkYWUkEoD8avcVBnVML5vdhVaQ",
     "expire_date": "2025-08-28T03:51:55.321Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "zy26pjczel6pqypj0ccsjh44j0mm1gm0",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2hCHdqC4dN8zkAEGqRpISrsy3l1JutDkr_57eS_haN-y2xuvboniIkCcfj9P4cGlg3incqsy1LKti5ddkQdtcq6Rn9fD_QtkarlnAZliCga8Js0qaDB2GBNSxKTsecIwGMVeM-Dogb6bEujAxjIiR_H-APApOGE:1uqPbV:Ee8WDMGvqbuT4jA0LB7_qXqGbHPKwHplnZlRZ5OQGVw",
-    "expire_date": "2025-09-08T05:18:49.098Z"
   }
 },
 {
@@ -282,7 +282,7 @@
     "include_container_weight": true,
     "include_lid_weight": false,
     "include_humidity_pack_weight": true,
-    "initial_gross": 41.0,
+    "initial_gross": 43.0,
     "cost": "69.00"
   }
 },
@@ -593,6 +593,83 @@
     "weight": 33.0,
     "initial": false,
     "final": true
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 27,
+  "fields": {
+    "container": 5,
+    "timestamp": "2025-08-25T22:02:55Z",
+    "weight": 40.0,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 28,
+  "fields": {
+    "container": 6,
+    "timestamp": "2025-08-25T22:03:42Z",
+    "weight": 45.0,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 29,
+  "fields": {
+    "container": 5,
+    "timestamp": "2025-08-23T22:05:59Z",
+    "weight": 43.0,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 30,
+  "fields": {
+    "container": 3,
+    "timestamp": "2025-08-25T22:08:11Z",
+    "weight": 9.5,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 31,
+  "fields": {
+    "container": 6,
+    "timestamp": "2025-08-27T10:31:59Z",
+    "weight": 43.5,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 32,
+  "fields": {
+    "container": 3,
+    "timestamp": "2025-08-27T10:33:48Z",
+    "weight": 9.5,
+    "initial": false,
+    "final": false
+  }
+},
+{
+  "model": "tracker.measurement",
+  "pk": 33,
+  "fields": {
+    "container": 5,
+    "timestamp": "2025-08-27T10:35:43Z",
+    "weight": 37.5,
+    "initial": false,
+    "final": false
   }
 },
 {
