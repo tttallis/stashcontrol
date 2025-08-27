@@ -159,3 +159,19 @@ class Dose(models.Model):
 	timestamp = models.DateTimeField()
 	mode = models.ForeignKey('DeliveryMode', on_delete=models.CASCADE)
 	size = models.PositiveIntegerField(default=1)
+	
+class PatientDay(models.Model):
+	patient = models.ForeignKey('patient', on_delete=models.CASCADE)
+	date = models.DateField()
+	grams = models.FloatField(default=0)
+	cost = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+	thc = models.FloatField(default=0)
+	cbd = models.FloatField(default=0)
+	cbg = models.FloatField(default=0)
+	cbv = models.FloatField(default=0)
+	cbc = models.FloatField(default=0)
+	thcv = models.FloatField(default=0)
+	containers = models.JSONField(default=list)
+	
+	def __str__(self):
+		return f"{self.patient} {str(self.date)}"

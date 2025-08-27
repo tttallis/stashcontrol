@@ -1,53 +1,5 @@
 [
 {
-  "model": "sessions.session",
-  "pk": "13v1iizfcuxnoubdg295kddnbefnc3xt",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2hCHdqC4dN8zkAEGqRpISrsy3l1JutDkr_57eS_haN-y2xuvboniIkCcfj9P4cGlg3incqsy1LKti5ddkQdtcq6Rn9fD_QtkarlnAZliCga8Js0qaDB2GBNSxKTsecIwGMVeM-Dogb6bEujAxjIiR_H-APApOGE:1ur5ei:6pEEGbgll_ae-3VjLbwPkISAQg7x5ZRHZRfOF925D5Q",
-    "expire_date": "2025-09-10T02:12:56.639Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "1wikgwephokndqikf7vwxvawkunckhx4",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1uoxM2:sZD5656B5wJ5X4BvSadQ4oTQArdDjcsrX-3tHyGyrcA",
-    "expire_date": "2025-09-04T04:56:50.834Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "8zufazvkbd40jon39rmkml37q6ou6rtr",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1un5ht:5R-xIdL7LewNHNay66X5jA_VYRpV9KyAwiz7850_XLI",
-    "expire_date": "2025-08-30T01:27:41.994Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "gk9hj5z2ju4pyfb8llwf64pq7b7ycx92",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1upHIq:7zUa7texUJGtTEdiCF0BUcCa8tPHNjZbuNk5qssjQ4s",
-    "expire_date": "2025-09-05T02:14:52.324Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "lubuehprxmonx811zv1qmydys7zp6gqe",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1ukxVc:NvsucE3Gwzvdo_XJpmYy5DPuYxTiN5qNjeQNKlWzZaA",
-    "expire_date": "2025-08-24T04:18:12.489Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "zhjxymfe6tam6x8bz6p04g84rtsnqksw",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSGdKfJw6b7fQAYYpGogKe3K-O_apAvd3nPOfQlP21r81nnxcxIXAeL0uwWKD647SHeqtyZjq-syB7kr8qBdTi3x83q4fweFevnWdgCDCrMBTQwqD0lnBOOATFDoRrSYA2gFORrgM40xO2a0lp1yoyHx_gC46Dcd:1umP0N:G3AGWwNCoKoJJp5NQDkYWUkEoD8avcVBnVML5vdhVaQ",
-    "expire_date": "2025-08-28T03:51:55.321Z"
-  }
-},
-{
   "model": "tracker.patient",
   "pk": 1,
   "fields": {
