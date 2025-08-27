@@ -7,9 +7,6 @@ ENV=.venv
 PORT=8000
 export DJANGO_SUPERUSER_PASSWORD=dev
 
-# kill old port if it exists
-lsof -i tcp:${PORT} | awk 'NR!=1 {print $2}' | xargs kill
-
 # create .env if it doesn't exist
 [ ! -d "$ENV" ] && python3 -m venv $ENV
 
