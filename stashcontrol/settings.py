@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-3fwt!=efb@yt%+48g13!@(k)vrr7f5sf+v3l()=wzfmk0x=)xf
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'tttallis.pythonanywhere.com', "stashcontrol-production.up.railway.app", "stashcontrol.app"]
+CSRF_TRUSTED_ORIGINS = ['https://*.stashcontrol.app', 'https://*.up.railway.app']
+
 LOGIN_URL = 'login'
 
 # Application definition
