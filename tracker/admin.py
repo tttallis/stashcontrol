@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Batch, Container, Dose, Measurement, DeliveryMode, Sponsor, Patient
+from .models import Product, Batch, Container, Dose, Measurement, DeliveryMode, Sponsor, Patient, PatientDay
 
 class ProductAdmin(admin.ModelAdmin):
 	list_display = ('name', 'product_weight')
@@ -15,4 +15,5 @@ admin.site.register(Measurement, MeasurementAdmin)
 admin.site.register(DeliveryMode)
 admin.site.register(Sponsor)
 admin.site.register(Patient)
+admin.site.register(PatientDay)
 
